@@ -23,7 +23,7 @@ with st.sidebar:
             type="password"
             )
         "[Get an OpenAI API key](https://platform.openai.com/account/api-keys)"
-        "[View the source code](https://github.com/rishabkumar7/pets-name-langchain/tree/main)"
+        "[View the source code](https://github.com/abdulsami123/Youtube-Assistant-LangChain)"
         submit_button = st.form_submit_button(label='Submit')
 
 if query and youtube_url:
