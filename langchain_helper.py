@@ -1,15 +1,14 @@
 import os
 from langchain_community.document_loaders import YoutubeLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from dotenv import load_dotenv
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain.prompts import ChatPromptTemplate, SystemMessagePromptTemplate, HumanMessagePromptTemplate
 from langchain_openai import ChatOpenAI
 
-load_dotenv() 
 
-openai_key : str = os.environ.get("OPENAI_API_KEY")
+
+
 
 
 
@@ -40,13 +39,13 @@ def create_db_from_youtube_video_url(video_url: str) -> FAISS:
     return db
 
 
-def get_response_from_query(db, query, k=4):
+def get_response_from_query(db, query, api_key ):
     """
     text-davinci-003 can handle up to 4097 tokens. Setting the chunksize to 1000 and k to 4 maximizes
     the number of tokens to analyze.
     """
 
-    docs = db.similarity_search(query, k=k)
+    docs = db.similarity_search(query)
     docs_page_content = " ".join([d.page_content for d in docs])
 
     llm = ChatOpenAI(
@@ -55,7 +54,7 @@ def get_response_from_query(db, query, k=4):
         max_tokens=None,
         timeout=None,
         max_retries=2,
-        api_key= openai_key  # if you prefer to pass api key in directly instaed of using env vars
+        api_key= api_key # if you prefer to pass api key in directly instaed of using env vars
 )
 
     

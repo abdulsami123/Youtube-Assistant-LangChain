@@ -32,6 +32,6 @@ if query and youtube_url:
         st.stop()
     else:
         db = lch.create_db_from_youtube_video_url(youtube_url)
-        response, docs = lch.get_response_from_query(db, query)
+        response, docs = lch.get_response_from_query(db, query , openai_api_key)
         st.subheader("Answer:")
         st.text(textwrap.fill(response, width=85))
